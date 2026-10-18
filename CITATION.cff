@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "DAEG-YOLO: Detection-Aware Enhancement Guided YOLO for Low-Light Object Detection"
+title: "DAEG-YOLO: A Detection-Aware Framework for Low-Light Object Detection via Zero-Reference Enhancement and Feature Modulation"
 message: >-
   If you use this software, please cite both the paper and
   the software using the metadata from this file.
@@ -17,8 +17,8 @@ date-released: "2026-10-18"
 preferred-citation:
   type: article
   title: >-
-    DAEG-YOLO: Detection-Aware Enhancement Guided YOLO
-    for Low-Light Object Detection
+    DAEG-YOLO: A Detection-Aware Framework for Low-Light Object Detection
+    via Zero-Reference Enhancement and Feature Modulation
   authors:
     - given-names: Riyadi Jimmy
       family-names: Iskandar

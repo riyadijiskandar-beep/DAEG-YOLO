@@ -1,8 +1,8 @@
-# DAEG-YOLO: Detection-Aware Enhancement Guided YOLO for Low-Light Object Detection
+# DAEG-YOLO: A Detection-Aware Framework for Low-Light Object Detection via Zero-Reference Enhancement and Feature Modulation
 
 Official implementation of **DAEG-YOLO**, a low-light object detection framework that jointly learns image enhancement and detection through a detection-aware feedback mechanism.
 
-> **Paper:** *DAEG-YOLO: Detection-Aware Enhancement Guided YOLO for Low-Light Object Detection*
+> **Paper:** *DAEG-YOLO: A Detection-Aware Framework for Low-Light Object Detection via Zero-Reference Enhancement and Feature Modulation*
 > Submitted to the International Journal of Intelligent Engineering and Systems (IJIES), 2026.
 
 ---
@@ -230,7 +230,7 @@ If you use this code, please cite:
 
 ```bibtex
 @article{jiskandar2026daegyolo,
-  title   = {DAEG-YOLO: Detection-Aware Enhancement Guided YOLO for Low-Light Object Detection},
+  title   = {DAEG-YOLO: A Detection-Aware Framework for Low-Light Object Detection via Zero-Reference Enhancement and Feature Modulation},
   author  = {Iskandar, Riyadi Jimmy},
   journal = {International Journal of Intelligent Engineering and Systems},
   year    = {2026}
