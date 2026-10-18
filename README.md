@@ -43,16 +43,16 @@ Input Image
 
 | Model | Params | mAP50 | mAP50:95 |
 |---|---|---|---|
-| YOLOv8s Baseline | 11.14M | 0.7919 | — |
-| **DAEG-YOLO** | **11.23M** | **0.8035** | — |
-| Δ | +0.09M | **+0.0116** | — |
+| YOLOv8s Baseline | 11.14M | 0.8017 | 0.5325 |
+| **DAEG-YOLO** | **11.23M** | **0.8035** | 0.5310 |
+| Δ | +0.09M | **+0.0018** | −0.0015 |
 
 ### Generalization
 
-| Dataset | Baseline mAP50 | DAEG-YOLO mAP50 | Δ |
-|---|---|---|---|
-| LLVIP (person, nighttime) | 0.9106 | **0.9138** | +0.0032 |
-| DarkFace (face, nighttime) | 0.5642 | **0.5825** | +0.0183 |
+| Dataset | Baseline mAP50 | Baseline mAP50:95 | DAEG-YOLO mAP50 | DAEG-YOLO mAP50:95 | Δ mAP50 |
+|---|---|---|---|---|---|
+| LLVIP (person, nighttime) | 0.9106 | 0.5231 | **0.9138** | **0.5430** | +0.0032 |
+| DarkFace (face, nighttime) | 0.5642 | 0.2412 | **0.5825** | **0.2477** | +0.0183 |
 
 ---
 
