@@ -1,0 +1,67 @@
+# yolov8s_daeg_yolo.yaml
+# DAEG-YOLO: DCENet9 + DAFM (Detection-Aware Feature Modulator) + FPN-DAEL
+#
+# Architectural modification: Layer 15 (P3-FPN) uses DAFMC2f instead of C2f.
+# DAFMC2f is registered in ultralytics/nn/modules/block.py and recognized by
+# parse_model — the arch mod is fully visible in this YAML.
+#
+# DAFM dual role (Layer 15 = P3-FPN output, 128ch in YOLOv8s, +6,561 params):
+#   (1) Feature modulation: channel SE-attention × spatial attention on C2f output
+#   (2) Importance export : spatial map (detached) → FPN-DAEL guides DCENet9
+#
+# Novelty vs V14.5-noFiLM (baseline):
+#   Baseline uses heuristic importance: abs().mean(dim=1) on raw P3 activations
+#   DAEG-YOLO uses LEARNED importance: DAFM trained by detection loss to predict
+#   detection-relevant spatial regions, then exports that knowledge to DAEL.
+#   No gradient from DAEL → DAFM (safe; avoids darkening equilibrium).
+#   Detection loss → DAFM → detection-informed importance → DAEL → DCENet9.
+#
+# Pretrained load: DAFMC2f inherits all C2f keys from yolov8s.pt (strict=False).
+#   dafm.* keys are new → initialized from near-identity state (bias=3.0).
+#
+# Ablation (--dafm-mode):
+#   full      : DAFM feature-mod + learned importance → FPN-DAEL  [MAIN PROPOSAL]
+#   heuristic : DAFM feature-mod + heuristic importance → FPN-DAEL
+#   none      : use yolov8s_lowlight_v14_5.yaml (no DAFM, = baseline)
+
+nc: 12
+scales:
+  n: [0.33, 0.25, 1024]
+  s: [0.33, 0.50, 1024]
+  m: [0.67, 0.75,  768]
+  l: [1.00, 1.00,  512]
+  x: [1.00, 1.25,  512]
+
+backbone:
+  # Standard YOLOv8s backbone — UNCHANGED, 100% pretrained load
+  - [-1, 1, Conv,  [64,   3, 2]]   # 0  P1/2
+  - [-1, 1, Conv,  [128,  3, 2]]   # 1  P2/4
+  - [-1, 3, C2f,   [128,  True]]   # 2
+  - [-1, 1, Conv,  [256,  3, 2]]   # 3  P3/8
+  - [-1, 6, C2f,   [256,  True]]   # 4  P3 features
+  - [-1, 1, Conv,  [512,  3, 2]]   # 5  P4/16
+  - [-1, 6, C2f,   [512,  True]]   # 6  P4 features
+  - [-1, 1, Conv,  [1024, 3, 2]]   # 7  P5/32
+  - [-1, 3, C2f,   [1024, True]]   # 8  P5 features
+  - [-1, 1, SPPF,  [1024, 5]]      # 9  SPPF
+
+head:
+  # FPN top-down — standard C2f, unchanged from YOLOv8s
+  - [-1,      1, nn.Upsample, [None, 2, 'nearest']]  # 10
+  - [[-1, 6], 1, Concat,      [1]]                   # 11  cat backbone P4
+  - [-1,      3, C2f,         [512,  False]]          # 12  P4-FPN
+
+  - [-1,      1, nn.Upsample, [None, 2, 'nearest']]  # 13
+  - [[-1, 4], 1, Concat,      [1]]                   # 14  cat backbone P3
+  - [-1,      3, DAFMC2f,     [256,  False]]          # 15  P3-FPN ← DAFM arch mod (registered in block.py)
+
+  # PAN bottom-up — standard C2f (no ECA; arch mod is at Layer 15, not here)
+  - [-1,       1, Conv,       [256,  3, 2]]           # 16
+  - [[-1, 12], 1, Concat,     [1]]                    # 17  cat P4-FPN
+  - [-1,       3, C2f,        [512,  False]]          # 18  P4-PAN
+
+  - [-1,       1, Conv,       [512,  3, 2]]           # 19
+  - [[-1,  9], 1, Concat,     [1]]                    # 20  cat SPPF
+  - [-1,       3, C2f,        [1024, False]]          # 21  P5-PAN
+
+  - [[15, 18, 21], 1, Detect, [nc]]                   # 22  Detect(P3+DAFM, P4, P5)

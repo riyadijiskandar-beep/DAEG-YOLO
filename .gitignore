@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Datasets (download separately — see README)
+datasets/
+ExDark/
+ExDark_Annno/
+ExDark_Official/
+LLVIP/
+DarkFace/
+NOD/
+VE-LOL-H/
+*.zip
+
+# Training outputs
+runs/
+results/
+
+# Model weights (download separately)
+weights/
+*.pt
+*.pth
+
+# Logs & temp
+*.log
+*.csv
+fps_distribution_result.json
+
+# IDE / OS
+.vscode/
+.idea/
+.claude/
+*.DS_Store
+Thumbs.db
+settings.local.json

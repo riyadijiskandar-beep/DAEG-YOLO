@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "DAEG-YOLO: Detection-Aware Enhancement Guided YOLO for Low-Light Object Detection"
+message: >-
+  If you use this software, please cite both the paper and
+  the software using the metadata from this file.
+type: software
+authors:
+  - given-names: Riyadi Jimmy
+    family-names: Iskandar
+    affiliation: >-
+      Institut Teknologi Sepuluh Nopember (ITS), Surabaya, Indonesia
+    email: 7025221014@student.its.ac.id
+license: AGPL-3.0
+date-released: "2026-10-18"
+
+preferred-citation:
+  type: article
+  title: >-
+    DAEG-YOLO: Detection-Aware Enhancement Guided YOLO
+    for Low-Light Object Detection
+  authors:
+    - given-names: Riyadi Jimmy
+      family-names: Iskandar
+      affiliation: >-
+        Institut Teknologi Sepuluh Nopember (ITS), Surabaya, Indonesia;
+        Universitas Widya Dharma Pontianak, Pontianak, Indonesia
+      email: riyadi@widyadharma.ac.id
+  journal: International Journal of Intelligent Engineering and Systems
+  abbreviation: IJIES
+  year: 2026

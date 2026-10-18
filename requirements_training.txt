@@ -1,0 +1,17 @@
+# Requirements for Training on the RTX 5080
+# PyTorch: Install SEPARATELY using the command below (requires the correct CUDA version)
+#
+# STEP 1 — Install PyTorch for the RTX 5080 (Blackwell, CUDA 12.8):
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+#
+# STEP 2 — Install other packages:
+#   pip install -r requirements_training.txt
+
+ultralytics>=8.0.0
+opencv-python>=4.8.0
+Pillow>=9.0.0
+matplotlib>=3.5.0
+numpy>=1.23.0
+lpips>=0.1.4
+pytorch-msssim>=0.2.1
+scikit-image>=0.19.0
